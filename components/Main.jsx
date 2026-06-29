@@ -146,7 +146,6 @@ export default function Main() {
 
     function handlePointerDown(e, textType, id = null) {
         e.preventDefault()
-        
         const rect = memeRef.current?.getBoundingClientRect()
         if (!rect) return
 
@@ -238,7 +237,7 @@ export default function Main() {
             } 
         }
     }
-        
+     
     async function loadAndDrawImage(imageUrl, container) {
         // 1. 下载图片
         const response = await fetch(imageUrl)
