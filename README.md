@@ -2,23 +2,27 @@
 
 A fully interactive React-based meme generator that lets you create custom memes with unlimited text boxes, drag-and-drop positioning, and real-time editing.
 
+[![Demo](./media/demo.gif)](./media/demo-video.mp4)
+
 ## ▶️ Live Demo
 
-[Try it live](https://gotham-citizen.github.io/Meme-Genrator/) — replace with the actual link once deployed
-
-<a href="https://gotham-citizen.github.io/Meme-Genrator/">
+<a href="https://gotham-citizen.github.io/Meme-Generator/">
   <img src="./media/live-demo.png" alt="Meme Generator Screenshot" width="600">
 </a>
+
+Click the image above or [here](https://gotham-citizen.github.io/Meme-Generator/) to try it!
 
 ## ✨ Features
 
 - 🖼️ **Random Meme Templates** - Fetches the full meme list from the Imgflip API and cycles through random templates (never repeating the current image twice in a row)
 - 📝 **Flexible Text Editing** - Edit the default top and bottom text, plus add as many custom text boxes as you like
 - ➕ **Add/Remove Text Boxes** - Click "+ Add Text Box" to insert a new editable text box, or click the "×" button to remove one
-- 🖱️ **Drag & Drop** - Reposition the top text, bottom text, or any custom text box by dragging it anywhere over the meme image
+- 🖱️ **Drag & Drop** - Reposition the top text, bottom text, or any custom text box by dragging it anywhere over the meme image (works on both desktop and touch screens)
 - 📏 **Editable Font Size** - Increase/decrease font size with +/− buttons, or click directly on the font size display to type a custom value (clamped between 0.5rem and 5rem)
 - 🎯 **Smart Placeholder Behavior** - Text fields clear on focus if they still hold the default placeholder text, and restore the default if left empty on blur
 - 🔄 **Image Cycling** - Get a new meme image while preserving all your text, positions, and font sizes
+- 📥 **Export as PNG** - Download your created meme as a PNG image file
+- 👁️ **Preview Export** - View your exported meme in a new browser window before downloading
 - 💅 **Authentic Meme Style** - Impact font, uppercase text, white fill with black outline/shadow for that classic meme look
 - ⚠️ **Loading & Error States** - Friendly loading message while fetching templates and an error message if the API request fails
 
@@ -73,16 +77,23 @@ npm run lint
 ```
 meme-generator/
 ├── components/
-│   ├── Header.jsx       # App header
-│   └── Main.jsx          # Meme form, text inputs, drag-and-drop, and image display
+│   ├── Header.jsx       # App header with troll face logo
+│   └── Main.jsx          # Meme form, text inputs, pointer-based drag-and-drop, export functionality
 ├── src/
 │   ├── App.jsx           # Root component
 │   └── index.jsx         # React entry point
 ├── styles/
 │   └── index.css         # Global styles (form, controls, draggable text, meme container)
-├── index.html             # HTML entry point
-├── vite.config.js         # Vite configuration
-└── eslint.config.js       # ESLint configuration
+├── media/
+│   ├── troll-face.png    # Header logo image
+│   ├── live-demo.png     # Screenshot for live demo link
+│   ├── demo.gif          # Animated GIF showing app functionality
+│   └── demo-video.mp4    # Demo video showing app usage
+├── index.html            # HTML entry point
+├── vite.config.js        # Vite configuration
+├── eslint.config.js      # ESLint configuration
+├── package.json          # Dependencies and scripts
+└── package-lock.json     # Locked dependencies
 ```
 
 ## 🎯 How It Works
@@ -94,8 +105,9 @@ meme-generator/
 5. Use the **+ / −** buttons to scale all text at once, or click the font size value itself to type an exact number.
 6. Click **"Get a new meme image 🖼"** to swap in a different random template while keeping all your text, positions, and font sizes intact.
 7. Click the **"×"** on any custom text box to remove it.
+8. Click **⬇️ Download PNG** to save your meme as an image file, or **👁️ Preview Export** to open it in a new browser window first.
 
 ## 📝 Notes
 
 - The font size display and custom text inputs use placeholder/default-value logic: leaving a field empty on blur restores its previous default rather than staying blank.
-- Dragging is implemented with raw mouse events (`mousedown`/`mousemove`/`mouseup`) rather than the native HTML5 drag-and-drop API, so it works consistently across browsers.
+- Dragging is implemented with pointer events (`pointerdown`/`pointermove`/`pointerup`) rather than the native HTML5 drag-and-drop API, so it works consistently across browsers and on both desktop and touch screens.
