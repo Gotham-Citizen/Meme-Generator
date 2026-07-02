@@ -94,6 +94,7 @@ meme-generator/
 ├── eslint.config.js      # ESLint configuration
 ├── package.json          # Dependencies and scripts
 └── package-lock.json     # Locked dependencies
+```
 
 ## 🎯 How It Works
 

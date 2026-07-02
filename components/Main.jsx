@@ -237,7 +237,7 @@ export default function Main() {
             } 
         }
     }
-     
+
     async function loadAndDrawImage(imageUrl, container) {
         // 1. 下载图片
         const response = await fetch(imageUrl)
@@ -285,6 +285,122 @@ export default function Main() {
             
             img.src = objectUrl
         })
+    }
+
+    function downloadCanvas(canvas, filename = 'image.png') {
+        // Create a temporary anchor element
+        const link = document.createElement('a')
+        link.download = filename
+        
+        // Convert canvas to data URL
+        link.href = canvas.toDataURL('image/png')
+        
+        // Trigger download
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+    }
+    
+    // 导出为 DataURL（在新窗口预览）
+    async function exportAsDataURL() {
+        const memeElement = memeRef.current
+        if (!memeElement) return
+
+        try {
+            const { canvas } = await loadAndDrawImage(meme.imageUrl, memeElement)
+            
+            // 导出为 dataURL
+            const dataURL = canvas.toDataURL('image/png')
+            
+            // 在新窗口预览
+            const win = window.open()
+            if (win) {
+                win.document.write(`<img src="${dataURL}" alt="Exported Meme" style="max-width: 100%;" />`)
+                win.document.title = 'Exported Meme'
+            }
+        } catch (error) {
+            console.error('Export error:', error)
+            alert('Failed to preview meme. Please try again.')
+        }
+    }
+
+    // Export as  PNG（下载文件）
+    async function exportAsPNG() {
+        const memeElement = memeRef.current
+        if (!memeElement) return
+
+        try {
+            const { canvas } = await loadAndDrawImage(meme.imageUrl, memeElement)
+            
+            // 下载
+            downloadCanvas(canvas, 'meme.png')
+        } catch (error) {
+            console.error('Export error:', error)
+            alert('Failed to export meme. Please try again.')
+        }
+    }
+
+    function drawTexts(ctx, rect) {
+        function drawTextWithShadow(text, x, y, fontSize, color = 'white') {
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = `${fontSize * 16}px impact, sans-serif`;
+
+            // matches .draggable's letter-spacing: 1px (if supported by the browser)
+            if ('letterSpacing' in ctx) {
+                ctx.letterSpacing = '1px';
+            }
+
+            // Matches CSS text-shadow exactly, in the same order:
+            // 2px 2px 0, -2px -2px 0, 2px -2px 0, -2px 2px 0,
+            // 0 2px 0, 2px 0 0, 0 -2px 0, -2px 0 0, 2px 2px 5px
+            const shadows = [
+                [2, 2, 0], [-2, -2, 0], [2, -2, 0], [-2, 2, 0],
+                [0, 2, 0], [2, 0, 0], [0, -2, 0], [-2, 0, 0],
+                [2, 2, 5], // final blurred layer, drawn on top like in CSS
+            ];
+
+            ctx.shadowColor = 'black';
+            shadows.forEach(([offsetX, offsetY, blur]) => {
+                ctx.shadowOffsetX = offsetX;
+                ctx.shadowOffsetY = offsetY;
+                ctx.shadowBlur = blur;
+                ctx.fillStyle = 'black';
+                ctx.fillText(text, x, y);
+            });
+
+            // reset shadow state before drawing the actual fill text
+            ctx.shadowColor = 'transparent';
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+            ctx.shadowBlur = 0;
+
+            ctx.fillStyle = color;
+            ctx.fillText(text, x, y);
+        }
+
+        drawTextWithShadow(
+            meme.topText.toUpperCase(),
+            (meme.topTextX / 100) * rect.width,
+            (meme.topTextY / 100) * rect.height,
+            meme.fontSize
+        );
+
+        drawTextWithShadow(
+            meme.bottomText.toUpperCase(),
+            (meme.bottomTextX / 100) * rect.width,
+            (meme.bottomTextY / 100) * rect.height,
+            meme.fontSize
+        );
+
+        customTexts.forEach(customText => {
+            drawTextWithShadow(
+                customText.text.toUpperCase(),
+                (customText.x / 100) * rect.width,
+                (customText.y / 100) * rect.height,
+                customText.fontSize || meme.fontSize
+            );
+        });
     }
 
     function downloadCanvas(canvas, filename = 'image.png') {
