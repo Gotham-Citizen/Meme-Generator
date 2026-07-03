@@ -2,6 +2,7 @@
 
 A fully interactive React-based meme generator that lets you create custom memes with unlimited text boxes, drag-and-drop positioning, and real-time editing.
 
+[![Demo](./media/demo.gif)](./media/demo-video.mp4)
 
 ## ▶️ Live Demo
 
