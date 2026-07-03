@@ -17,7 +17,7 @@ Click the image above or [here](https://gotham-citizen.github.io/Meme-Generator/
 - 🖼️ **Random Meme Templates** - Fetches the full meme list from the Imgflip API and cycles through random templates (never repeating the current image twice in a row)
 - 📝 **Flexible Text Editing** - Edit the default top and bottom text, plus add as many custom text boxes as you like
 - ➕ **Add/Remove Text Boxes** - Click "+ Add Text Box" to insert a new editable text box, or click the "×" button to remove one
-- 🖱️ **Drag & Drop** - Reposition the top text, bottom text, or any custom text box by dragging it anywhere over the meme image
+- 🖱️ **Drag & Drop** - Reposition the top text, bottom text, or any custom text box by dragging it anywhere over the meme image (works on both desktop and touch screens)
 - 📏 **Editable Font Size** - Increase/decrease font size with +/− buttons, or click directly on the font size display to type a custom value (clamped between 0.5rem and 5rem)
 - 🎯 **Smart Placeholder Behavior** - Text fields clear on focus if they still hold the default placeholder text, and restore the default if left empty on blur
 - 🔄 **Image Cycling** - Get a new meme image while preserving all your text, positions, and font sizes
@@ -78,7 +78,7 @@ npm run lint
 meme-generator/
 ├── components/
 │   ├── Header.jsx       # App header with troll face logo
-│   └── Main.jsx          # Meme form, text inputs, drag-and-drop, export functionality
+│   └── Main.jsx          # Meme form, text inputs, pointer-based drag-and-drop, export functionality
 ├── src/
 │   ├── App.jsx           # Root component
 │   └── index.jsx         # React entry point
@@ -86,11 +86,14 @@ meme-generator/
 │   └── index.css         # Global styles (form, controls, draggable text, meme container)
 ├── media/
 │   ├── troll-face.png    # Header logo image
-│   └── live-demo.png     # Screenshot for live demo link
+│   ├── live-demo.png     # Screenshot for live demo link
+│   ├── demo.gif          # Animated GIF showing app functionality
+│   └── demo-video.mp4    # Demo video showing app usage
 ├── index.html            # HTML entry point
 ├── vite.config.js        # Vite configuration
 ├── eslint.config.js      # ESLint configuration
-└── package.json          # Dependencies and scripts
+├── package.json          # Dependencies and scripts
+└── package-lock.json     # Locked dependencies
 ```
 
 ## 🎯 How It Works
@@ -107,4 +110,4 @@ meme-generator/
 ## 📝 Notes
 
 - The font size display and custom text inputs use placeholder/default-value logic: leaving a field empty on blur restores its previous default rather than staying blank.
-- Dragging is implemented with raw mouse events (`mousedown`/`mousemove`/`mouseup`) rather than the native HTML5 drag-and-drop API, so it works consistently across browsers.
+- Dragging is implemented with pointer events (`pointerdown`/`pointermove`/`pointerup`) rather than the native HTML5 drag-and-drop API, so it works consistently across browsers and on both desktop and touch screens.
