@@ -142,7 +142,9 @@ export default function Main() {
         delete textRefs.current[`custom-${id}`]
     }
 
-    function handleMouseDown(e, textType, id = null) {
+    function handlePointerDown(e, textType, id = null) {
+        e.preventDefault()
+        
         const rect = memeRef.current?.getBoundingClientRect()
         if (!rect) return
 
@@ -162,7 +164,9 @@ export default function Main() {
         })
     }
 
-    function handleMouseMove(e) {
+    function handlePointerMove(e) {
+        e.preventDefault()
+        
         if (!dragging || !memeRef.current) return
 
         const rect = memeRef.current.getBoundingClientRect()
@@ -189,22 +193,22 @@ export default function Main() {
         }
     }
 
-    function handleMouseUp() {
+    function handlePointerUp() {
         setDragging(null)
     }
 
     useEffect(() => {
         if (dragging) {
-            window.addEventListener('mousemove', handleMouseMove)
-            window.addEventListener('mouseup', handleMouseUp)
+            window.addEventListener('pointermove', handlePointerMove)
+            window.addEventListener('pointerup', handlePointerUp)
         } else {
-            window.removeEventListener('mousemove', handleMouseMove)
-            window.removeEventListener('mouseup', handleMouseUp)
+            window.removeEventListener('pointermove', handlePointerMove)
+            window.removeEventListener('pointerup', handlePointerUp)
         }
 
         return () => {
-            window.removeEventListener('mousemove', handleMouseMove)
-            window.removeEventListener('mouseup', handleMouseUp)
+            window.removeEventListener('pointermove', handlePointerMove)
+            window.removeEventListener('pointerup', handlePointerUp)
         }
     }, [dragging, dragOffset])
 
@@ -398,7 +402,6 @@ export default function Main() {
         });
     }
 
-
     if (error) return <main><p className="error">Failed to load memes: {error}</p></main>
     if (loading) return <main><p className="loading">Loading...</p></main>
 
@@ -512,7 +515,7 @@ export default function Main() {
                         cursor: 'grab',
                         fontSize: `${meme.fontSize}rem`
                     }}
-                    onMouseDown={(e) => handleMouseDown(e, 'topText')}
+                    onPointerDown={(e) => handlePointerDown(e, 'topText')}
                 >
                     {meme.topText}
                 </span>
@@ -526,7 +529,7 @@ export default function Main() {
                         cursor: 'grab',
                         fontSize: `${meme.fontSize}rem`
                     }}
-                    onMouseDown={(e) => handleMouseDown(e, 'bottomText')}
+                    onPointerDown={(e) => handlePointerDown(e, 'bottomText')}
                 >
                     {meme.bottomText}
                 </span>
@@ -543,7 +546,7 @@ export default function Main() {
                             cursor: 'grab',
                             fontSize: `${customText.fontSize || meme.fontSize}rem`
                         }}
-                        onMouseDown={(e) => handleMouseDown(e, null, customText.id)}
+                        onPointerDown={(e) => handlePointerDown(e, null, customText.id)}
                     >
                         {customText.text}
                     </span>
