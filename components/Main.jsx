@@ -281,6 +281,20 @@ export default function Main() {
             img.src = objectUrl
         })
     }
+
+    function downloadCanvas(canvas, filename = 'image.png') {
+        // Create a temporary anchor element
+        const link = document.createElement('a')
+        link.download = filename
+        
+        // Convert canvas to data URL
+        link.href = canvas.toDataURL('image/png')
+        
+        // Trigger download
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+    }
     
     // 导出为 DataURL（在新窗口预览）
     async function exportAsDataURL() {
