@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react"
+import { useTranslation } from "react-i18next"
 
 export default function Main() {
+    const { t } = useTranslation()
     const [meme, setMeme] = useState({
-        topText: "One does not simply",
-        bottomText: "Walk into Mordor",
+        topText: t("defaults.topText"),
+        bottomText: t("defaults.bottomText"),
         imageUrl: "https://i.imgflip.com/1bij.jpg",
         topTextX: 50,
         topTextY: 20,
@@ -128,7 +130,7 @@ export default function Main() {
     function addTextBox() {
         const newText = {
             id: nextId,
-            text: "New Text",
+            text: t("main.newText"),
             x: 50,
             y: 50,
             fontSize: meme.fontSize
@@ -237,7 +239,7 @@ export default function Main() {
         }
     }
         
-    async function loadAndDrawImage(imageUrl, container, drawCallback) {
+    async function loadAndDrawImage(imageUrl, container) {
         // 1. 下载图片
         const response = await fetch(imageUrl)
         const blob = await response.blob()
@@ -403,35 +405,35 @@ export default function Main() {
     }
 
 
-    if (error) return <main><p className="error">Failed to load memes: {error}</p></main>
-    if (loading) return <main><p className="loading">Loading...</p></main>
+    if (error) return <main><p className="error">{t("main.loadError", { error })}</p></main>
+    if (loading) return <main><p className="loading">{t("main.loading")}</p></main>
 
     return (
         <main>
             <div className="form">
                 {/* Top Text - First column */}
-                <label>Top Text
+                <label>{t("main.topText")}
                     <input
                         type="text"
-                        placeholder="One does not simply"
+                        placeholder={t("defaults.topText")}
                         name="topText"
                         onChange={handleChange}
                         value={meme.topText}
-                        onFocus={(e) => handleFocus(e, "One does not simply")}
-                        onBlur={(e) => handleBlur(e, "One does not simply", "topText")}
+                        onFocus={(e) => handleFocus(e, t("defaults.topText"))}
+                        onBlur={(e) => handleBlur(e, t("defaults.topText"), "topText")}
                     />
                 </label>
 
                 {/* Bottom Text - Second column */}
-                <label>Bottom Text
+                <label>{t("main.bottomText")}
                     <input
                         type="text"
-                        placeholder="Walk into Mordor"
+                        placeholder={t("defaults.bottomText")}
                         name="bottomText"
                         onChange={handleChange}
                         value={meme.bottomText}
-                        onFocus={(e) => handleFocus(e, "Walk into Mordor")}
-                        onBlur={(e) => handleBlur(e, "Walk into Mordor", "bottomText")}
+                        onFocus={(e) => handleFocus(e, t("defaults.bottomText"))}
+                        onBlur={(e) => handleBlur(e, t("defaults.bottomText"), "bottomText")}
                     />
                 </label>
 
@@ -448,17 +450,17 @@ export default function Main() {
                             className="custom-text-wrapper"
                             style={{ gridColumn: gridColumn }}
                         >
-                            <label>Custom Text {index + 1}
+                            <label>{t("main.customText", { index: index + 1 })}
                                 <div className="custom-text-input">
                                     <input
                                         id={customText.id}
                                         type="text"
-                                        placeholder="Enter custom text"
+                                        placeholder={t("main.enterCustomText")}
                                         value={customText.text}
                                         // onChange={(e) => handleCustomTextChange(customText.id, e)}
                                         onChange={handleChange}
-                                        onFocus={(e) => handleFocus(e, "New Text")}
-                                        onBlur={(e) => handleBlur(e, "New Text", customText.id)}
+                                        onFocus={(e) => handleFocus(e, t("main.newText"))}
+                                        onBlur={(e) => handleBlur(e, t("main.newText"), customText.id)}
                                     />
                                     <button 
                                         onClick={() => removeTextBox(customText.id)} 
@@ -491,7 +493,7 @@ export default function Main() {
                     </div>
                     
                     <button onClick={addTextBox} type="button" className="add-text-btn">
-                        + Add Text Box
+                        {t("main.addTextBox")}
                     </button>
                 </div>
 
@@ -500,7 +502,7 @@ export default function Main() {
                     className="get-meme-btn"
                     onClick={getMemeImage}
                 >
-                    Get a new meme image 🖼
+                    {t("main.getMeme")}
                 </button>
             </div>
             

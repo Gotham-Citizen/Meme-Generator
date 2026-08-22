@@ -1,0 +1,20 @@
+{
+  "header": {
+    "title": "Meme Generator"
+  },
+  "main": {
+    "topText": "Top Text",
+    "bottomText": "Bottom Text",
+    "customText": "Custom Text {{index}}",
+    "enterCustomText": "Enter custom text",
+    "newText": "New Text",
+    "addTextBox": "+ Add Text Box",
+    "getMeme": "Get a new meme image 🖼",
+    "loading": "Loading...",
+    "loadError": "Failed to load memes: {{error}}"
+  },
+  "defaults": {
+    "topText": "One does not simply",
+    "bottomText": "Walk into Mordor"
+  }
+}
