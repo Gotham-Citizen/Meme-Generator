@@ -404,7 +404,6 @@ export default function Main() {
         });
     }
 
-
     if (error) return <main><p className="error">{t("main.loadError", { error })}</p></main>
     if (loading) return <main><p className="loading">{t("main.loading")}</p></main>
 
@@ -420,7 +419,7 @@ export default function Main() {
                         onChange={handleChange}
                         value={meme.topText}
                         onFocus={(e) => handleFocus(e, t("defaults.topText"))}
-                        onBlur={(e) => handleBlur(e, t("defaults.topText"), "topText")}
+                        onBlur={(e) => handleBlur(e, t("defaults.topText"), "topText")
                     />
                 </label>
 
