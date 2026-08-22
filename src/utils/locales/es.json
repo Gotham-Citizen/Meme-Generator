@@ -14,7 +14,11 @@
     "loadError": "Error al cargar los memes: {{error}}"
   },
   "defaults": {
-    "topText": "One does not simply",
-    "bottomText": "Walk into Mordor"
+    "topText": "No es tan simple",
+    "bottomText": "entrar en Mordor"
+  },
+  "export": {
+    "downloadPng": "⬇️ Descargar PNG",
+    "previewExport": "👁️ Vista previa de exportación"
   }
 }

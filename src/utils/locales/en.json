@@ -16,5 +16,9 @@
   "defaults": {
     "topText": "One does not simply",
     "bottomText": "Walk into Mordor"
+  },
+  "export": {
+    "downloadPng": "⬇️ Download PNG",
+    "previewExport": "👁️ Preview Export"
   }
 }

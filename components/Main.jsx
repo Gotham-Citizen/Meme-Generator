@@ -558,10 +558,10 @@ export default function Main() {
             {/* Export Buttons */}
             <div className="export-controls">
                 <button onClick={exportAsPNG} className="export-btn">
-                    ⬇️ Download PNG
+                    {t("export.downloadPng")}
                 </button>
                 <button onClick={exportAsDataURL} className="export-btn">
-                    👁️ Preview Export
+                    {t("export.previewExport")}
                 </button>
             </div>
         </main>

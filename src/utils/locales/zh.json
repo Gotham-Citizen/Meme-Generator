@@ -1,6 +1,6 @@
 {
   "header": {
-    "title": "表情包生成器"
+    "title": "MEME 生成器"
   },
   "main": {
     "topText": "顶部文字",
@@ -9,12 +9,16 @@
     "enterCustomText": "输入自定义文字",
     "newText": "新文字",
     "addTextBox": "+ 添加文字框",
-    "getMeme": "获取新的表情包图片 🖼",
+    "getMeme": "获取新的 MEME 🖼",
     "loading": "加载中...",
-    "loadError": "加载表情包失败：{{error}}"
+    "loadError": "加载MEME失败：{{error}}"
   },
   "defaults": {
-    "topText": "One does not simply",
-    "bottomText": "Walk into Mordor"
+    "topText": "一个人不可能",
+    "bottomText": "就这样走进Mordor"
+  },
+  "export": {
+    "downloadPng": "⬇️ 下载 PNG",
+    "previewExport": "👁️ 预览导出"
   }
 }
